@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from projectDjangoApp.forms import FromProyecto
+from projectDjangoApp.forms import FormProyecto
 from projectDjangoApp.models import Proyecto
 # Create your views here.
 
@@ -12,9 +12,9 @@ def listadoProyectos(request):
     return render(request, 'projectDjangoApp/proyectos.html',data)
 
 def agregarProyecto(request):
-    form = FromProyecto()
+    form = FormProyecto
     if request.method == 'POST':
-        form = FromProyecto(request.POST)
+        form = FormProyecto(request.POST)
         if form.is_valid():
             form.save()
         return index(request)
@@ -28,9 +28,9 @@ def eliminarProyecto(request, id):
 
 def actualizarProyecto(request, id):
     proyecto = Proyecto.objects.get(id = id)
-    form = FromProyecto(instance=proyecto)
+    form = FormProyecto(instance=proyecto)
     if request.method == 'POST':
-        form = FromProyecto(request.POST, instance=proyecto)
+        form = FormProyecto(request.POST, instance=proyecto)
         if form.is_valid():
             form.save()
         return index(request)
